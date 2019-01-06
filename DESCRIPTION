@@ -1,7 +1,7 @@
 Package: Sinax
 Type: Package
 Title: Sinax 
-Version: 1.0
+Version: 2.0
 Author: Oscar Ramirez-Alan
 Maintainer: Oscar Ramirez-Alan <osoramirez@gmail.com>
 Description: A tool to analysis acoustic index for ecologist. The package offers functions for measuring the most common acoustic index with a simple one code.
@@ -11,7 +11,7 @@ Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.1.1
 Imports: graphics
-Depends: R (>= 3.2.1), tuneR, seewave (>= 2.0.1), soundecology (>= 1.3.3)
+Depends: R (>= 3.5), tuneR, seewave (>= 2.0.1), soundecology (>= 1.3.3)
 Suggests: knitr,rmarkdown, utils
 VignetteBuilder: knitr
 NeedsCompilation: no
