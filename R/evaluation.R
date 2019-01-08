@@ -61,6 +61,8 @@ evaluation <- function(){
     }
   }
 
+  df <- decostand(df, method="hellinger", na.rm = FALSE)
+
   df$Decision_insect<-ifelse(df$criterion2<900 & df$criterion4<5000 &df$criterion1<0.15& df$criterion3<3650,
                              "Look good","Probably with insects")
 
@@ -68,6 +70,7 @@ evaluation <- function(){
 
   df$Decision_manualy<-ifelse(df$criterion2<900 &df$criterion4<5000 &df$criterion1<0.15& df$criterion3<3650
                               & df$Pow.12>.03 & df$Pow.12<.18, "Good","check manually")
+
 
   return(df)
 }
