@@ -43,7 +43,6 @@ soundindex <- function(){
 
       TB<-(Technophony/Bioc)
 
-
       AEI <- acoustic_evenness(wav,max_freq = 10000)#Acoustic Evenness Index  {soundecology}
       AEI.L <- AEI$aei_left
       AEI.R <- AEI$aei_right

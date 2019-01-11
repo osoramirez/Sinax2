@@ -3,6 +3,10 @@
 # This is an example function named 'evaluation'
 #' evaluation!
 #' @param evaluation Estimates a evaluation of insect and rain
+#' @import tuneR
+#' @import seewave
+#' @import soundecology
+#' @import vegan
 #' @return a evaluation of rain and insects
 #' @export
 #' @examples
@@ -32,11 +36,21 @@ evaluation <- function(){
       Pow.12 <-  x[1,2] 				## 1-2 kHz
       Pow.12 <- as.data.frame(Pow.12)
 
-      Bioc <-x[11,2] 			## 10-11 kHz
+      Pow910c  <-x[c(9,10),2]  			## 9-10 kHz
+      PowC910 <-as.data.frame(Pow910c)
+      PowC910 <-mean(Pow910c)
+      PowC910
+
+      BiocC <-x[c(2,3,4,5,6,7,8),2] 			## 2-8 kHz
+      BiocC28 <-as.data.frame(BiocC)
+      BiocC28 <- mean(BiocC28$BiocC)
+      BiocC28
+
 
       Technophony <- v[1]						## Technophony
 
-      TB<-(Technophony/Bioc)
+      TB<-(Technophony/BiocC28)
+
 
 
       MAE<-M(wav) #Median of amplitude envelope
@@ -53,8 +67,8 @@ evaluation <- function(){
 
       z <- list(criterion1=MAE,
                 criterion2=length.fd.23,  criterion3=length.fd.34, criterion4=length.fd.56,
-                Pow.12=Pow.12,
-                Technophony=Technophony, BIOAC=Bioc, TB=TB)
+                Pow.12=Pow.12,TB=TB,
+                Technophony=Technophony, PowC910=PowC910, BiocC28=BiocC28)
 
       df <- rbind(df, data.frame(z, row.names = make.names(rep(files[file], length(z[[1]])), unique = TRUE)))
 
@@ -63,14 +77,8 @@ evaluation <- function(){
 
   df <- decostand(df, method="hellinger", na.rm = FALSE)
 
-  df$Decision_insect<-ifelse(df$criterion2<900 & df$criterion4<5000 &df$criterion1<0.15& df$criterion3<3650,
-                             "Look good","Probably with insects")
-
-  df$Decision_rain<-ifelse(df$Pow.12>0.35 & df$TB>8, "Probably with Rain", "Look Clear")
-
-  df$Decision_manualy<-ifelse(df$criterion2<900 &df$criterion4<5000 &df$criterion1<0.15& df$criterion3<3650
-                              & df$Pow.12>.03 & df$Pow.12<.18, "Good","check manually")
-
+  df$Decision_rain<-ifelse(df$Pow.12>0.40 & df$PowC910>0.09 &  df$criterion4<0.01 &
+                             df$criterion3>0.8, "Probably with Rain", "Looks Clear")
 
   return(df)
 }
