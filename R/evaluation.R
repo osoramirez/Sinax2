@@ -77,8 +77,8 @@ evaluation <- function(){
 
   df <- decostand(df, method="hellinger", na.rm = FALSE)
 
-  df$Decision_rain<-ifelse(df$Pow.12>0.40 & df$PowC910>0.09 &  df$criterion4<0.01 &
-                             df$criterion3>0.8, "Probably with Rain", "Looks Clear")
+  df$Decision_rain<-ifelse(df$Pow.12<0.40 & df$PowC910<0.09 &  df$criterion4>0.01 &
+                             df$criterion3<0.8, "Probably with Rain", "Looks Clear")
 
   return(df)
 }
