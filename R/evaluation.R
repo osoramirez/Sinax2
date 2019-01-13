@@ -36,10 +36,14 @@ evaluation <- function(){
       Pow.12 <-  x[1,2] 				## 1-2 kHz
       Pow.12 <- as.data.frame(Pow.12)
 
-      Pow910c  <-x[c(9,10),2]  			## 9-10 kHz
-      PowC910 <-as.data.frame(Pow910c)
-      PowC910 <-mean(Pow910c)
-      PowC910
+      Pow02  <-x[c(0:2),2] 	## 0-2 kHz
+      Pow02Sum <- sum(Pow02)
+      Pow02Mean<- mean(Pow02)
+
+      Pow910  <-x[c(9,10),2]  			## 9-10 kHz
+      Pow910Sum <- sum(Pow910)
+      PowC910Mean <-mean(Pow910)
+
 
       BiocC <-x[c(2,3,4,5,6,7,8),2] 			## 2-8 kHz
       BiocC28 <-as.data.frame(BiocC)
@@ -68,7 +72,10 @@ evaluation <- function(){
       z <- list(criterion1=MAE,
                 criterion2=length.fd.23,  criterion3=length.fd.34, criterion4=length.fd.56,
                 Pow.12=Pow.12,TB=TB,
-                Technophony=Technophony, PowC910=PowC910, BiocC28=BiocC28)
+                Technophony=Technophony,
+                BiocC28=BiocC28,
+                Pow02Mean=Pow02Mean,Pow02Sum=Pow02Sum,
+                PowC910Mean=PowC910Mean, Pow910Sum=Pow910Sum)
 
       df <- rbind(df, data.frame(z, row.names = make.names(rep(files[file], length(z[[1]])), unique = TRUE)))
 
