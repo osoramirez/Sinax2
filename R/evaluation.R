@@ -50,12 +50,11 @@ evaluation <- function(){
       BiocC28 <- mean(BiocC28$BiocC)
       BiocC28
 
-
       Technophony <- v[1]						## Technophony
 
       TB<-(Technophony/BiocC28)
 
-
+      Raindetector<-(BiocC28/TB)
 
       MAE<-M(wav) #Median of amplitude envelope
 
@@ -75,7 +74,7 @@ evaluation <- function(){
                 Technophony=Technophony,
                 BiocC28=BiocC28,
                 Pow02Mean=Pow02Mean,Pow02Sum=Pow02Sum,
-                PowC910Mean=PowC910Mean, Pow910Sum=Pow910Sum)
+                PowC910Mean=PowC910Mean, Pow910Sum=Pow910Sum, Raindetector=Raindetector)
 
       df <- rbind(df, data.frame(z, row.names = make.names(rep(files[file], length(z[[1]])), unique = TRUE)))
 
@@ -84,8 +83,12 @@ evaluation <- function(){
 
   df <- decostand(df, method="hellinger", na.rm = FALSE)
 
-  df$Decision_rain<-ifelse(df$Pow.12<0.40 & df$PowC910<0.09 &  df$criterion4>0.01 &
-                             df$criterion3<0.8, "Probably with Rain", "Looks Clear")
+  df$First_Decision<-ifelse(df$Pow.12<0.40 & df$PowC910<0.09 &  df$criterion4>0.01 &
+                              df$criterion3<0.8, "Not enough information", "Looks Clear")
+
+  df$Decision_Rain<-ifelse(df$Raindetector>=0.2 & df$Raindetector<=0.7, "Rain", "Not enough information")
+
+  df$FileDesicion<-ifelse(df$First_Decision=="Looks Clear" & df$Decision_Rain== "Rain", "Probably with Rain", "Looks Clear")
 
   return(df)
 }
