@@ -48,16 +48,12 @@ evaluation <- function(){
       BiocC <-x[c(2,3,4,5,6,7,8),2] 			## 2-8 kHz
       BiocC28 <-as.data.frame(BiocC)
       BiocC28 <- mean(BiocC28$BiocC)
-      BiocC28
 
       Technophony <- v[1]						## Technophony
 
       TB<-(Technophony/BiocC28)
 
-      Raindetector<-(BiocC28/TB)
-
       MAE<-M(wav) #Median of amplitude envelope
-
 
       dom.frec<-dfreq(wav, f=22050, wl=512, threshold=0.015, main=paste(files[file], '-', minutos[i], sep=""))#eat:modifique para ajustar el nombre del archivo
       as.data.frame(dom.frec)->dom.frec1
@@ -74,7 +70,7 @@ evaluation <- function(){
                 Technophony=Technophony,
                 BiocC28=BiocC28,
                 Pow02Mean=Pow02Mean,Pow02Sum=Pow02Sum,
-                PowC910Mean=PowC910Mean, Pow910Sum=Pow910Sum, Raindetector=Raindetector)
+                PowC910Mean=PowC910Mean, Pow910Sum=Pow910Sum)
 
       df <- rbind(df, data.frame(z, row.names = make.names(rep(files[file], length(z[[1]])), unique = TRUE)))
 
@@ -85,10 +81,9 @@ evaluation <- function(){
 
   df$First_Decision<-ifelse(df$Pow.12<0.40 & df$PowC910<0.09 &  df$criterion4>0.01 &
                               df$criterion3<0.8, "Not enough information", "Looks Clear")
-
+  df$Raindetector <- df$BiocC28[]/df$TB[]
   df$Decision_Rain<-ifelse(df$Raindetector>=0.2 & df$Raindetector<=0.7, "Rain", "Not enough information")
-
   df$FileDesicion<-ifelse(df$First_Decision=="Looks Clear" & df$Decision_Rain== "Rain", "Probably with Rain", "Looks Clear")
-
   return(df)
 }
+

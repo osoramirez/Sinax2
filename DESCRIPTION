@@ -1,7 +1,7 @@
 Package: Sinax
 Type: Package
 Title: Sinax 
-Version: 2.6
+Version: 2.7
 Author: Oscar Ramirez-Alan
 Maintainer: Oscar Ramirez-Alan <osoramirez@gmail.com>
 Description: A tool to analysis acoustic index for ecologist. The package offers functions for measuring the most common acoustic index with a simple one code.
