@@ -79,11 +79,8 @@ evaluation <- function(){
 
   df <- decostand(df, method="hellinger", na.rm = FALSE)
 
-  df$First_Decision<-ifelse(df$Pow.12<0.40 & df$PowC910<0.09 &  df$criterion4>0.01 &
-                              df$criterion3<0.8, "Not enough information", "Looks Clear")
   df$Raindetector <- df$BiocC28[]/df$TB[]
-  df$Decision_Rain<-ifelse(df$Raindetector>=0.2 & df$Raindetector<=0.7, "Rain", "Not enough information")
-  df$FileDesicion<-ifelse(df$First_Decision=="Looks Clear" & df$Decision_Rain== "Rain", "Probably with Rain", "Looks Clear")
+  df$Decision_Rain<-ifelse(df$Raindetector>.63 & df$Raindetector<=0.677 , "Filter not passed", "Looks clear")
   return(df)
 }
 
