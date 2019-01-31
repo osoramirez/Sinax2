@@ -80,7 +80,8 @@ evaluation <- function(){
   df <- decostand(df, method="hellinger", na.rm = FALSE)
 
   df$Raindetector <- df$BiocC28[]/df$TB[]
-  df$Decision_Rain<-ifelse(df$Raindetector>.63 & df$Raindetector<=0.677 , "Filter not passed", "Looks clear")
+  df$Decision1<-ifelse(df$Pow.12 <= 0.013,  "Looks clear", "Filter not passed")
+  df$Decision_Rain<-ifelse(df$Decision1== "Filter not passed" &  df$Raindetector >= 0.63 & df$Raindetector <= 2.35 , "Rain", "Looks clear")
   return(df)
 }
 
