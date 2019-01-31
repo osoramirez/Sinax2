@@ -36,7 +36,7 @@ SPL <- function(){
       spectrum0<-data.table(meanspec(wav,f=freq,norm=F,plot=T))
       SPL_Un<-NULL
       y<-NULL
-      SP<- spectrum0[,SPL_Un:=20*log10(y/(2*10e-5))]
+      SP<- spectrum0[,SPL_Un:=20*log10(y/(2*10e-5))] #uncalibrated
       SPL<- as.data.frame(SP)
       SPLm<- data.table(mean(SPL$SPL_Un))
       SPLsd<- data.table(sd(SPL$SPL_Un))
