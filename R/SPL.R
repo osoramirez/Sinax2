@@ -1,7 +1,7 @@
 # SPL
 #
 # This is an example function named 'Sound pressure level'
-#' SPL!
+#' Sound pressure level
 #' @param SPL Sound pressure level uses a logarithmic scale to represent the sound pressure of a sound relative to a reference pressure
 #' @usage SPL
 #' @import tuneR

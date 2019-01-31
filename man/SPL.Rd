@@ -2,7 +2,7 @@
 % Please edit documentation in R/SPL.R
 \name{SPL}
 \alias{SPL}
-\title{SPL!}
+\title{Sound pressure level}
 \usage{
 SPL
 }
@@ -13,7 +13,7 @@ SPL
 Sound presure level
 }
 \description{
-SPL!
+Sound pressure level
 }
 \examples{
 #firt, created a vector call: "time" and define your sequence time
