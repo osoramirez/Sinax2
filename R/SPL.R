@@ -22,14 +22,17 @@ spl <- function(){
   df <- data.frame()
 
   files <- list.files(path = getwd(), pattern = "wav$", ignore.case = T )
-  x <- 0
-  time<-seq(x)
-  minutos<-seq(time)
+  time <- time
+  minutos<-seq(time)#eat: limites de los minutos que quieres probar
 
+  # esto va a calcular los indices acusticos para cada archivo
+  # usar 1:length() crea un indice numerico
   for(file in 1:length(files)){
 
-    for(i in 1:(length(minutos))){
+    for(i in 1:(length(minutos))){ #eat:loop para cada intervalo de minutos
 
+      # leer cada archivo .wav en cada iteracion de 1 a lo largo de files
+      # eat: en lnea 129 modifique los intervalos de los minutos
       wav <- readWave(files[file], from = minutos[i]-1, to = minutos[i],
                       units = "minutes",  header = FALSE, toWaveMC = NULL)
 
