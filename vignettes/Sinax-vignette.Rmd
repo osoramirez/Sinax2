@@ -1,22 +1,30 @@
 ---
-title: "Sinax"
-author: "Oscar Ramírez-Alán"
+title: <center><font size="6"><b>Sinax; Sound Index Analysis</b></font></center>
+author: 
+- <center><a href="https://osoramirez.weebly.com//">Oscar Ramírez Alán, M.Sc</a> </center>
 date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
+output:
+  rmarkdown::html_document:
+    self_contained: yes
+    toc: true
+    toc_depth: 3
+    toc_float:
+      collapsed: false
+      smooth_scroll: true
 vignette: >
-  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteIndexEntry{Sinax}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r setup, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
-```
 
-This package is a loops estimate different index for soundscape 
+# Sinax
+
+# Introduction
+
+## Introduction
+
+This package is a loops estimate different index for soundscape.  The principal function in "soundindex()". 
 
 -AEI Acoustic Evenness Index  from {soundecology}
 

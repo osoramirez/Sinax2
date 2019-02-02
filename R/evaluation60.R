@@ -1,8 +1,6 @@
-# evaluation
-#
-# This is an example function named 'evaluation'
-#' evaluation!
-#' @param evaluation Estimates a evaluation of insect and rain
+#' Estimate if your file contain rain and insects for 60 min intervals
+
+#' @param evaluation60 Estimates a evaluation of insect and rain
 #' @import tuneR
 #' @import seewave
 #' @import soundecology
@@ -10,27 +8,41 @@
 #' @return a evaluation of rain and insects
 #' @export
 #' @examples
-#' #firt, created a vector call: "time" and define your sequence time
-#' #time<-seq(0:3)
-#' #evaluation()->evaluation #Remember always chance the vector name
-#' #evaluation
+#' #This code analyzes for a 60-minute interval
+#' #evaluation60()->evaluation60min #Remember always chance the vector name
+#' #evaluation60min #Call the vector, and see your results.
+#'
+#'
+#'
+#' @author Oscar Ramírez Alán (\email{osoramirez@@gmail.com}). Implements a
+#' loops using base function from seewave and soundecology.
+#'
+#' @references {
+#' Luis J. Villanueva-Rivera and Bryan C. Pijanowski (2018). soundecology: Soundscape Ecology. R package version 1.3.3. https://CRAN.R-project.org/package=soundecology.
+#'
+#' Sueur, J., Aubin, T., & Simonis, C. (2008). Seewave, a free modular tool for sound analysis and synthesis. Bioacoustics, 18(2), 213-226.
+#'
+#' Uwe Ligges, Sebastian Krey, Olaf Mersmann, and Sarah Schnackenberg (2018). tuneR: Analysis of Music and Speech. URL: https://CRAN.R-project.org/package=tuneR.
+#' }
+#'
+#'
+#'
 
-evaluation <- function(){
+evaluation60 <- function(){
 
   df <- data.frame()
 
   files <- list.files(path = getwd(), pattern = "wav$", ignore.case = T )
-
-  time=time
-  minutos<-seq(time)
+  minutos<-seq(0:59)# 60-minute interval
 
   for(file in 1:length(files)){
 
     for(i in 1:(length(minutos))){
 
-      wav <- readWave(files[file], from = minutos[i]-1, to = minutos[i],#Thank to Dr. Esteban Acevedo-Trejos <acevedoesteban@gmail.com>, who helped to improve this function.
+      wav <- readWave(files[file], from = minutos[i]-1, to = minutos[i],
                       units = "minutes",  header = FALSE, toWaveMC = NULL)
-      x <-soundscapespec(wav, plot=TRUE) 	## function call to compute soundscape power in R-seewave(no plots)
+
+      x <-soundscapespec(wav, plot=TRUE, main=files[file]) 	## function call to compute soundscape power in R-seewave
       v <- as.vector(x[,2]) 				## soundscape power F 1-2 kHz
 
       Pow.12 <-  x[1,2] 				## 1-2 kHz

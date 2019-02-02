@@ -1,39 +1,52 @@
-#' dom.freq
-
-#' @param dom.freq Estimates the dominant frequency, using the function in seewave v.2.1.0 package)
-#' @usage dom.freq()
+#' Estimate dominant frequency at 10 minutes for .wav
+#'
+#' # This is an example function named 'dominant frequency'.
+#' dom.freq10
+#' @param dom.freq10 Estimates the dominant frequency, using the function in seewave package
+#' @usage dom.freq10()
 #' @import tuneR
 #' @import seewave
 #' @import soundecology
-#' @author Oscar Ramirez Alan (\email{osoramirez@@gmail.com})
-#' @return return a table with a different soundecology index
+#' @return return a table at 10 min interval with dominant frequency index.
 #' @export
 #' @examples
-#' #firt, created a vector call: "time" and define your sequence time
-#' #time<-seq(0:3)
-#' #dom.freq()->Fdom.freq #The vector "Fdom.freq" call your result
-#' #Fdom.freq #Call the vector, and now you can see all index by channel.
+#' #This code analyzes for a 10-minute interval
+#' #dom.freq10()->dom.freq10min #Vector that contain your results
+#' #dom.freq10min #Call the vector, and see your results.
 #'
 #'
-dom.freq <- function(){
+#' @author Oscar Ramírez Alán (\email{osoramirez@@gmail.com}). Implements a
+#' loops using base function from seewave and soundecology.
+#'
+#' @references {
+#' Luis J. Villanueva-Rivera and Bryan C. Pijanowski (2018). soundecology: Soundscape Ecology. R package version 1.3.3. https://CRAN.R-project.org/package=soundecology.
+#'
+#' Sueur, J., Aubin, T., & Simonis, C. (2008). Seewave, a free modular tool for sound analysis and synthesis. Bioacoustics, 18(2), 213-226.
+#'
+#' Uwe Ligges, Sebastian Krey, Olaf Mersmann, and Sarah Schnackenberg (2018). tuneR: Analysis of Music and Speech. URL: https://CRAN.R-project.org/package=tuneR.
+#' }
+#'
+#'
+#'
+#'
+dom.freq10 <- function(){
 
   df <- data.frame()
 
   files <- list.files(path = getwd(), pattern = "wav$", ignore.case = T )
-
-  time=time
-  minutos<-seq(time)#eat:
+  minutos<-seq(0:9)# 10-minute interval
 
   for(file in 1:length(files)){
 
     for(i in 1:(length(minutos))){
 
-      wav <- readWave(files[file], from = minutos[i]-1, to = minutos[i],#Thank to Dr. Esteban Acevedo-Trejos <acevedoesteban@gmail.com>, who helped to improve this function.
+      wav <- readWave(files[file], from = minutos[i]-1, to = minutos[i],
                       units = "minutes",  header = FALSE, toWaveMC = NULL)
-      dom.frec<-dfreq(wav, f=22050, wl=512, threshold=0.015, main=paste(files[file], '-', minutos[i], sep=""))#eat:modifique para ajustar el nombre del archivo
+
+      dom.frec<-dfreq(wav, f=22050, wl=512, threshold=0.015, main=paste(files[file], '-', minutos[i], sep=""))
       as.data.frame(dom.frec)->dom.frec1
 
-      x <-soundscapespec(wav, plot=FALSE) 	## function call to compute soundscape power in R-seewave(no plots)
+      x <-soundscapespec(wav, plot=FALSE)
       v <- as.vector(x[,2]) 				## soundscape power F 1-2 kHz
 
       Prom.Dom.frec<-mean(dom.frec1$y, na.rm=TRUE)
@@ -75,14 +88,6 @@ dom.freq <- function(){
       length.fd.1415<-length(dm.1415$y)
       length.fd.15<-length(dm.15$y)
 
-      # crear una lista que servira como una fila con todas medidas para
-      # el archivo corriente
-      # los nombres de los elementos de la lista seran los nombres de la
-      # columna del data frame
-      # crear una lista que servira como una fila con todas medidas para
-      # el archivo corriente
-      # los nombres de los elementos de la lista seran los nombres de la
-      # columna del data frame
       z <- list(Mean=Prom.Dom.frec,
                 F01=length.fd.01,
                 F12=length.fd.12,
@@ -101,9 +106,6 @@ dom.freq <- function(){
                 F1415=length.fd.1415,
                 F15=length.fd.15)
 
-      #rows <- file
-      #df <- rbind(df, z, rows)
-      # pegar cada lista o fila al data frame vacio
 
       df <- rbind(df, data.frame(z, row.names = make.names(rep(files[file], length(z[[1]])), unique = TRUE)))
     }
@@ -111,7 +113,4 @@ dom.freq <- function(){
 
   return(df)
 }
-
-
-
 

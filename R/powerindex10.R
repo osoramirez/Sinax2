@@ -1,44 +1,45 @@
-#' powerindex
+#' Estimate power spectral density (PSD) in 10 min intervals
 
 
-#' @param powerindex Estimates the power spectral analysis of your sound file in dB by frequency of 1kHz.
-#' @usage powerindex()
-#' @author Oscar Ramirez Alan (\email{osoramirez@@gmail.com})
+#' @param powerindex10 Estimates the power spectral analysis of your sound file in dB by frequency of 1kHz.
+#' @usage powerindex10()
 #' @return return a table with a different power spectral index
 #' @export
 #' @examples
-#' #firt, created a vector call: "time" and define your sequence time
-#' #time<-seq(0:3)
-#' #powerindex()->powervector #Remember always chance the vector name
-#' #powervector #Call the vector, and now you can see all index by channel.
+#' #This code analyzes for a 10-minutes intervals
+#' #powerindex10()->powerindex10min #Vector that contain your results
+#' #powerindex10min #Call the vector, and see your results.
+#'
+#' @author Oscar Ramírez Alán (\email{osoramirez@@gmail.com}). Implements a
+#' loops using base function from seewave and soundecology.
+#'
+#' @references {
+#' Luis J. Villanueva-Rivera and Bryan C. Pijanowski (2018). soundecology: Soundscape Ecology. R package version 1.3.3. https://CRAN.R-project.org/package=soundecology.
+#'
+#' Sueur, J., Aubin, T., & Simonis, C. (2008). Seewave, a free modular tool for sound analysis and synthesis. Bioacoustics, 18(2), 213-226.
+#'
+#' Uwe Ligges, Sebastian Krey, Olaf Mersmann, and Sarah Schnackenberg (2018). tuneR: Analysis of Music and Speech. URL: https://CRAN.R-project.org/package=tuneR.
+#' }
+#'
 #'
 
-
-powerindex <- function(){
+powerindex10 <- function(){
 
   df <- data.frame()
 
-  # creando una lista de los archivos .wav en el directorio de trabajo
-  # esto sera la lista donde el loop tomara el indice de iteracion
   files <- list.files(path = getwd(), pattern = "wav$", ignore.case = T )
-  #rows <- c()
 
-  time=time
-  minutos<-seq(time)#eat
+  minutos<-seq(0:9)# 1-minute interval
 
-  # esto va a calcular los indices acusticos para cada archivo
-  # usar 1:length() crea un indice numerico
   for(file in 1:length(files)){
 
-    for(i in 1:(length(minutos))){ #eat:loop para cada intervalo de minutos
+    for(i in 1:(length(minutos))){
 
-      # leer cada archivo .wav en cada iteracion de 1 a lo largo de files
-      # eat: en lnea 129 modifique los intervalos de los minutos
       wav <- readWave(files[file], from = minutos[i]-1, to = minutos[i],
                       units = "minutes",  header = FALSE, toWaveMC = NULL)
 
       ## Calculate Soundscape Power and associated statistics
-      x <-soundscapespec(wav, plot=T) 	## function call to compute soundscape power in R-seewave(no plots)
+      x <-soundscapespec(wav, plot=TRUE, main=files[file]) 	## function call to compute soundscape power in R-seewave
       FSUM <- colSums(x) 					## soundscape power sum
       FSUM<-FSUM[2:2]
       FMEAN <- colMeans(x) 				## soundscape power mean
@@ -86,7 +87,5 @@ powerindex <- function(){
 
   return(df)
 }
-
-
 
 
