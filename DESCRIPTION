@@ -1,8 +1,8 @@
 Package: Sinax
 Type: Package
-Title: Sinax 
+Title: Sound Index Analysis for Ecologist 
 Version: 1.0.1
-Date:"`r Sys.Date()`"
+Date: "`r Sys.Date()`"
 Author: Oscar Ramirez-Alan
 Maintainer: Oscar Ramirez-Alan <osoramirez@gmail.com>
 Description: A tool to analysis acoustic index for ecologist. The package offers functions for measuring the most common acoustic index with a simple one code.
@@ -13,6 +13,10 @@ LazyData: true
 RoxygenNote: 6.1.1
 Imports: graphics
 Depends: R (>= 3.5), tuneR, seewave (>= 2.0.1), data.table (>= 1.12.0), vegan (>= 2.5), soundecology (>= 1.3.3)
-Suggests: knitr,rmarkdown, utils
+Suggests: 
+    knitr,
+    rmarkdown,
+    utils,
+    testthat
 VignetteBuilder: knitr
 NeedsCompilation: no

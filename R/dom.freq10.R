@@ -1,7 +1,5 @@
 #' Estimate dominant frequency at 10 minutes for .wav
-#'
-#' # This is an example function named 'dominant frequency'.
-#' dom.freq10
+
 #' @param dom.freq10 Estimates the dominant frequency, using the function in seewave package
 #' @usage dom.freq10()
 #' @import tuneR

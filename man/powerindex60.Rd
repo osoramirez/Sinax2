@@ -2,7 +2,7 @@
 % Please edit documentation in R/powerindex60.R
 \name{powerindex60}
 \alias{powerindex60}
-\title{Estimate power spectral density (PSD) in 6 min intervals}
+\title{Estimate power spectral density (PSD) in 60 min intervals}
 \usage{
 powerindex60()
 }
@@ -13,7 +13,7 @@ powerindex60()
 return a table with a different power spectral index
 }
 \description{
-Estimate power spectral density (PSD) in 6 min intervals
+Estimate power spectral density (PSD) in 60 min intervals
 }
 \examples{
 #This code analyzes for a 60-minutes intervals

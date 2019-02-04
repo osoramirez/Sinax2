@@ -2,7 +2,7 @@
 % Please edit documentation in R/dom.freq6.R
 \name{dom.freq6}
 \alias{dom.freq6}
-\title{dom.freq6}
+\title{Estimate dominant frequency at 6 minutes for .wav}
 \usage{
 dom.freq6()
 }
@@ -13,7 +13,7 @@ dom.freq6()
 return a table with a different soundecology index
 }
 \description{
-dom.freq6
+Estimate dominant frequency at 6 minutes for .wav
 }
 \examples{
 #This code analyzes for a 6-minute interval

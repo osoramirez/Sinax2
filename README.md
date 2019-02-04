@@ -16,3 +16,6 @@ devtools::install_github("osoramirez/Sinax")
 library(Sinax)
 
 ```
+
+
+NOTE: please also cite the [seewave](https://cran.r-project.org/package=seewave),[soundecology](https://cran.r-project.org/web/packages/soundecology/) and [tuneR](https://cran.r-project.org/package=tuneR)  packages if you use my packages to estimates acoustic index

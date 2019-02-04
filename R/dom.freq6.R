@@ -1,4 +1,4 @@
-#' dom.freq6
+#' Estimate dominant frequency at 6 minutes for .wav
 
 #' @param dom.freq6 Estimates the dominant frequency, using the function in seewave package)
 #' @usage dom.freq6()

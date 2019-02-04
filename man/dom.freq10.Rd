@@ -13,8 +13,7 @@ dom.freq10()
 return a table at 10 min interval with dominant frequency index.
 }
 \description{
-# This is an example function named 'dominant frequency'.
-dom.freq10
+Estimate dominant frequency at 10 minutes for .wav
 }
 \examples{
 #This code analyzes for a 10-minute interval

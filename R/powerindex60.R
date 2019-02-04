@@ -1,4 +1,4 @@
-#' Estimate power spectral density (PSD) in 6 min intervals
+#' Estimate power spectral density (PSD) in 60 min intervals
 #'
 #' @param powerindex60 Estimates the power spectral analysis of your sound file in dB by frequency of 1kHz.
 #' @usage powerindex60()
