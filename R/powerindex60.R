@@ -29,7 +29,7 @@ powerindex60 <- function(){
 
   files <- list.files(path = getwd(), pattern = "wav$", ignore.case = T )
 
-  minutos<-seq(0:59)# 1-minute interval
+  minutos<-seq(0:58)# 1-minute interval
 
   for(file in 1:length(files)){
 

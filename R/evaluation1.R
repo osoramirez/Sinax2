@@ -65,8 +65,20 @@ evaluation1 <- function(){
 
       MAE<-M(wav) #Median of amplitude envelope
 
+      freq<-wav@samp.rate
+      spectrum0<-data.table(meanspec(wav,f=freq,norm=F,plot=F))
+      SPL_Un<-NULL
+      x<-NULL
+      y<-NULL
+      spectrum0=data.table(meanspec(wav,f=freq,norm=F,plot=T,  main=files[file]))
+      spectrum0[,SPL_Un:=20*log10(y/(2*10e-5))]
+      SPLm<- data.table(mean(spectrum0$SPL_Un))
+
+
       dom.frec<-dfreq(wav, f=22050, wl=512, threshold=0.015, main=paste(files[file], '-', minutos[i], sep=""))#eat:modifique para ajustar el nombre del archivo
       as.data.frame(dom.frec)->dom.frec1
+      dm.12<-dom.frec1[dom.frec1$y>1 & dom.frec1$y<=2, ]
+      length.fd.12<-length(dm.12$y)
       dm.23<-dom.frec1[dom.frec1$y>2 & dom.frec1$y<=3, ]
       length.fd.23<-length(dm.23$y)
       dm.34<-dom.frec1[dom.frec1$y>3 & dom.frec1$y<=4, ]
@@ -74,13 +86,14 @@ evaluation1 <- function(){
       dm.56<-dom.frec1[dom.frec1$y>5 & dom.frec1$y<=6, ]
       length.fd.56<-length(dm.56$y)
 
-      z <- list(criterion1=MAE,
-                criterion2=length.fd.23,  criterion3=length.fd.34, criterion4=length.fd.56,
-                Pow.12=Pow.12,TB=TB,
-                Technophony=Technophony,
-                BiocC28=BiocC28,
-                Pow02Mean=Pow02Mean,Pow02Sum=Pow02Sum,
-                PowC910Mean=PowC910Mean, Pow910Sum=Pow910Sum)
+      z <- list( SPLm=SPLm,
+                 criterion1=MAE,  criterion2=length.fd.12,
+                 criterion3=length.fd.23,  criterion4=length.fd.34, criterion5=length.fd.56,
+                 Pow.12=Pow.12,TB=TB,
+                 Technophony=Technophony,
+                 BiocC28=BiocC28,
+                 Pow02Mean=Pow02Mean,Pow02Sum=Pow02Sum,
+                 PowC910Mean=PowC910Mean, Pow910Sum=Pow910Sum)
 
       df <- rbind(df, data.frame(z, row.names = make.names(rep(files[file], length(z[[1]])), unique = TRUE)))
 
@@ -88,10 +101,8 @@ evaluation1 <- function(){
   }
 
   df <- decostand(df, method="hellinger", na.rm = FALSE)
-
   df$Raindetector <- df$BiocC28[]/df$TB[]
-  df$Decision1<-ifelse(df$Pow.12 <= 0.013,  "Looks clear", "Filter not passed")
-  df$Decision_Rain<-ifelse(df$Decision1== "Filter not passed" &  df$Raindetector >= 0.63 & df$Raindetector <= 2.35 , "Rain", "Looks clear")
+  names(df)[1]<-paste("SPLmean")
   return(df)
-}
 
+}

@@ -76,13 +76,13 @@ soundindex10 <- function(){
       Ht<-th(envorni) # (Temporal entropy), entropy of a temporal envelope. Calculate the temporal Entropy (Ht; Sueur et al. 2008b) by calling the "env" function from the "seewave" package.
 
 
-      speca<-spec(wav,f=f) #{seewave}
+      speca<-spec(wav,f=f, plot=FALSE) #{seewave}
       Hf<-sh(speca) #calculate the frequency Entropy (Hf; Sueur et al. 2008b) by calling the "sh" function from the "seewave" package
 
       MAE<-M(wav) #Median of amplitude envelope #{seewave}
 
-      spec <- meanspec(wav, plot=F) #{seewave}
-      peaks<-fpeaks(spec)
+      spec <- meanspec(wav, plot=FALSE) #{seewave}
+      peaks<-fpeaks(spec, plot=FALSE)
       NP<-length(peaks)/2
 
       z <- list(AEI.L = AEI.L,

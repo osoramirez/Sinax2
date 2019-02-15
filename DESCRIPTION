@@ -1,7 +1,7 @@
 Package: Sinax
 Type: Package
 Title: Sound Index Analysis for Ecologist 
-Version: 1.0.1
+Version: 1.2
 Date: "`r Sys.Date()`"
 Author: Oscar Ramirez-Alan
 Maintainer: Oscar Ramirez-Alan <osoramirez@gmail.com>

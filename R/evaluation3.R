@@ -1,6 +1,6 @@
-#' Estimate if your file contain rain and insects for 60 min intervals
-
-#' @param evaluation60 Estimates a evaluation of insect and rain
+#' Estimate if your file contain rain and insects for 1 min intervals
+#
+#' @param evaluation3 Estimates a evaluation of insect and rain
 #' @import tuneR
 #' @import seewave
 #' @import soundecology
@@ -8,9 +8,9 @@
 #' @return a evaluation of rain and insects
 #' @export
 #' @examples
-#' #This code analyzes for a 60-minute interval
-#' #evaluation60()->evaluation60min #Remember always chance the vector name
-#' #evaluation60min #Call the vector, and see your results.
+#' #This code analyzes for a 3-minute interval
+#' #evaluation3()->evaluation3min #Vector that contain your results
+#' #evaluation3min #Call the vector, and see your results.
 #'
 #'
 #'
@@ -25,15 +25,13 @@
 #' Uwe Ligges, Sebastian Krey, Olaf Mersmann, and Sarah Schnackenberg (2018). tuneR: Analysis of Music and Speech. URL: https://CRAN.R-project.org/package=tuneR.
 #' }
 #'
-#'
-#'
 
-evaluation60 <- function(){
+evaluation3 <- function(){
 
   df <- data.frame()
 
   files <- list.files(path = getwd(), pattern = "wav$", ignore.case = T )
-  minutos<-seq(0:58)# 60-minute interval
+  minutos<-seq(0:2)# 60-minute interval
 
   for(file in 1:length(files)){
 
@@ -75,7 +73,6 @@ evaluation60 <- function(){
       spectrum0=data.table(meanspec(wav,f=freq,norm=F,plot=T,  main=files[file]))
       spectrum0[,SPL_Un:=20*log10(y/(2*10e-5))]
       SPLm<- data.table(mean(spectrum0$SPL_Un))
-
 
 
       dom.frec<-dfreq(wav, f=22050, wl=512, threshold=0.015, main=paste(files[file], '-', minutos[i], sep=""))#eat:modifique para ajustar el nombre del archivo

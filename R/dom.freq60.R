@@ -30,7 +30,7 @@ dom.freq60 <- function(){
   df <- data.frame()
 
   files <- list.files(path = getwd(), pattern = "wav$", ignore.case = T )
-  minutos<-seq(0:59)# 60-minute interval
+  minutos<-seq(0:58)# 60-minute interval
 
   for(file in 1:length(files)){
 

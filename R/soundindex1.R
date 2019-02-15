@@ -38,7 +38,7 @@ soundindex1 <- function(){
 
       wav <- readWave(files[file], from = minutos[i]-1, to = minutos[i],#Thank to Dr. Esteban Acevedo-Trejos <acevedoesteban@gmail.com>, who helped to improve this function.
                       units = "minutes",  header = FALSE, toWaveMC = NULL)
-      x <-soundscapespec(wav, plot=FALSE) 	## function call to compute soundscape power in R-seewave(no plots)
+      x <-soundscapespec(wav, plot=TRUE,main=files[file]) 	## function call to compute soundscape power in R-seewave(no plots)
       v <- as.vector(x[,2]) 				## soundscape power F 1-2 kHz
 
       f=11000
@@ -78,13 +78,13 @@ soundindex1 <- function(){
       Ht<-th(envorni) # (Temporal entropy), entropy of a temporal envelope. Calculate the temporal Entropy (Ht; Sueur et al. 2008b) by calling the "env" function from the "seewave" package.
 
 
-      speca<-spec(wav,f=f) #{seewave}
+      speca<-spec(wav,f=f, plot=FALSE) #{seewave}
       Hf<-sh(speca) #calculate the frequency Entropy (Hf; Sueur et al. 2008b) by calling the "sh" function from the "seewave" package
 
       MAE<-M(wav) #Median of amplitude envelope #{seewave}
 
-      spec <- meanspec(wav, plot=F) #{seewave}
-      peaks<-fpeaks(spec)
+      spec <- meanspec(wav, plot=FALSE) #{seewave}
+      peaks<-fpeaks(spec, plot=FALSE)
       NP<-length(peaks)/2
 
       z <- list(AEI.L = AEI.L,
@@ -110,6 +110,7 @@ soundindex1 <- function(){
   }
 
   return(df)
+
 }
 
 
