@@ -86,6 +86,9 @@ dom.freq10 <- function(){
       length.fd.1415<-length(dm.1415$y)
       length.fd.15<-length(dm.15$y)
 
+      finf <- data.table(file.info(dir(getwd()), extra_cols = F))
+      finft<- data.table(finf$mtime[file=file])
+
       z <- list(Mean=Prom.Dom.frec,
                 F01=length.fd.01,
                 F12=length.fd.12,
@@ -102,13 +105,15 @@ dom.freq10 <- function(){
                 F1213=length.fd.1213,
                 F1314=length.fd.1314,
                 F1415=length.fd.1415,
-                F15=length.fd.15)
+                F15=length.fd.15,
+                DateTime=finft)
 
 
       df <- rbind(df, data.frame(z, row.names = make.names(rep(files[file], length(z[[1]])), unique = TRUE)))
     }
   }
-
+  names(df)[18]<-paste("Date-Time")
   return(df)
+
 }
 

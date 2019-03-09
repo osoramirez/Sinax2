@@ -87,6 +87,9 @@ soundindex6 <- function(){
       peaks<-fpeaks(spec, plot=FALSE)
       NP<-length(peaks)/2
 
+      finf <- data.table(file.info(dir(getwd()), extra_cols = F))
+      finft<- data.table(finf$mtime[file=file])
+
       z <- list(AEI.L = AEI.L,
                 AEI.R = AEI.R,
                 ADI.L=ADI.L,
@@ -103,15 +106,16 @@ soundindex6 <- function(){
                 Hf=Hf,
                 MAE=MAE,
                 NP=NP,
-                Technophony=Technophony, BIOAC=Bioc, TB=TB)
+                Technophony=Technophony, BIOAC=Bioc, TB=TB,
+                DateTime=finft)
 
       df <- rbind(df, data.frame(z, row.names = make.names(rep(files[file], length(z[[1]])), unique = TRUE)))
     }
   }
-
+  names(df)[20]<-paste("Date-Time")
   return(df)
-}
 
+}
 
 
 

@@ -73,19 +73,22 @@ powerindex60 <- function(){
       Biophony <-x[11,2] 			## 10-11 kHz
       Biophony <-as.data.frame(Biophony)
 
+      finf <- data.table(file.info(dir(getwd()), extra_cols = F))
+      finft<- data.table(finf$mtime[file=file])
+
       z <- list(Pow.12=Pow.12,Pow.23=Pow.23,
                 Pow.34=Pow.34,Pow.45=Pow.45,
                 Pow.56=Pow.56,Pow.67=Pow.67,
                 Pow.78=Pow.78,Pow.89=Pow.89,
                 Pow.910=Pow.910,Pow.1011=Pow.1011,
                 FSUM=FSUM, FMEAN=FMEAN,
-                Technophony=Technophony, Biophony=Biophony)
+                Technophony=Technophony, Biophony=Biophony,
+                DateTime=finft)
 
       df <- rbind(df, data.frame(z, row.names = make.names(rep(files[file], length(z[[1]])), unique = TRUE)))
     }
   }
-
+  names(df)[15]<-paste("Date-Time")
   return(df)
 }
-
 

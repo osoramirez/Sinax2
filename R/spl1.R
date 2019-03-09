@@ -51,10 +51,11 @@ spl1 <- function(){
       ttest<- t.test(spectrum0$SP)
       lwrci <- ttest$conf.int[1]
       uprci <- ttest$conf.int[2]
-
+      finf <- data.table(file.info(dir(getwd()), extra_cols = F))
+      finft<- data.table(finf$mtime[file=file])
 
       z <- list(SPLm=SPLm, SPLsd=SPLsd,SPLQ25=SPLQ25, SPLMe=SPLMe, SPLQ75=SPLQ75,
-                SPLMax=SPLMax, SPLMin=SPLMin, lwrci=lwrci,uprci=uprci)
+                SPLMax=SPLMax, SPLMin=SPLMin, lwrci=lwrci,uprci=uprci,finft=finft)
 
       df <- rbind(df[], data.frame(z, row.names = make.names(rep(files[file], length(z[[1]])), unique = TRUE)))
 
@@ -70,6 +71,8 @@ spl1 <- function(){
   names(df)[7]<-paste("SPLMin")
   names(df)[8]<-paste("lwr.ci(95%)")
   names(df)[9]<-paste("upr.ci(95%)")
+  names(df)[10]<-paste("Date-Time")
+
 
   return(df)
 }
